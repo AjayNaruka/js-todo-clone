@@ -25,7 +25,7 @@ $(function(){
 
   //AGGIUNGO TASK DEFAULT
   for(var i=0;i<presentTask.length;i++){
-    insertTask(presentTask[i])
+    insertTask(presentTask[i],false)
   }
   var taskNumbers = presentTask.length
 
@@ -39,6 +39,9 @@ $(function(){
       $(".list-header").css("border-bottom","1px solid black")
       $(".list-header i.open-arrow").removeClass("fa-angle-up")
       $(".list-header i.open-arrow").addClass("fa-angle-down")
+      //LI DEFAULT
+      var noTask ='Non ci sono altri task '
+      insertTask(noTask,true);
     }
     console.log("rimosso "+ taskNumbers);
   })
@@ -48,19 +51,29 @@ $(function(){
   $("#input").keyup(function(event){
     if(event.which === 13){
       var toAddTask = $(this).val().trim();
-      insertTask(toAddTask)
+      if(toAddTask.length>3){
+        $(".list ul li.default").remove()
+      insertTask(toAddTask,false)
       taskNumbers++;
       sendNotification(toAddTask)
       $(this).val('') 
       console.log(taskNumbers);
+      }
+      
     }
   })
 
   //FUNZIONI
 
-  function insertTask(str){
-    var htmlTag = '<li><p class="task-desc">'+str+'</p><i class="fas fa-trash-alt"></i></li>'
+  function insertTask(str,noTask){
+    if(noTask === false){
+      var htmlTag = '<li><p class="task-desc">'+str+'</p><i class="fas fa-trash-alt"></i></li>'
+      $(".list ul").append(htmlTag)
+    } else if(noTask === true){
+      var htmlTag = '<li class="default"><p>'+str+'</p></li>'
     $(".list ul").append(htmlTag) 
+    }
+    
   }
 
   function sendNotification(str){
