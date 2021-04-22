@@ -9,9 +9,6 @@ $(function(){
   // ARROW LINK
   $(".list-header i.open-arrow").click(function(){
 
-    //toggle  bordo
-    
-
     if($(this).hasClass("fa-angle-down")){
       $(".list-header").css("border-bottom","none")
       $(this).removeClass("fa-angle-down")
@@ -59,8 +56,6 @@ $(function(){
     }
   })
 
-  
-
   //FUNZIONI
 
   function insertTask(str){
@@ -74,8 +69,5 @@ $(function(){
     $(".notification").fadeIn(1000)
     $(".notification").delay(3000).fadeOut(1500)
   }
-
-  
-
 
 })
